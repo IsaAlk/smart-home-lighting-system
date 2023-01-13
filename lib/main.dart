@@ -1,4 +1,3 @@
-import 'package:activity_tracker/homepage_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {

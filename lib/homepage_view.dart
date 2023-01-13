@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
           title: const Text(
             'Home Page',
           ),
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.blue,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
             //       child: const Text("Accelerometer Data"),
             //       style: ElevatedButton.styleFrom(
             //         onPrimary: Colors.white,
-            //         primary: Colors.amber,
+            //         primary: Colors.blue,
             //         onSurface: Colors.grey,
             //         side: BorderSide(color: Colors.black, width: 1),
             //         elevation: 60,
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
             //       child: Text("Gyroscope Data"),
             //       style: ElevatedButton.styleFrom(
             //         onPrimary: Colors.white,
-            //         primary: Colors.amber,
+            //         primary: Colors.blue,
             //         onSurface: Colors.grey,
             //         side: BorderSide(color: Colors.black, width: 1),
             //         elevation: 60,
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                   child: Text("Bluetooth Manager"),
                   style: ElevatedButton.styleFrom(
                     onPrimary: Colors.white,
-                    primary: Colors.amber,
+                    primary: Colors.blue,
                     onSurface: Colors.grey,
                     side: BorderSide(color: Colors.black, width: 1),
                     elevation: 60,

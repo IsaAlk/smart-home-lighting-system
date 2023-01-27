@@ -157,6 +157,73 @@ class DeviceScreen extends StatelessWidget {
 
   final BluetoothDevice device;
 
+  static const alphaMap = {
+    "0":48,
+    "1":49,
+    "2":50,
+    "3":51,
+    "4":52,
+    "5":53,
+    "6":54,
+    "7":55,
+    "8":56,
+    "9":57,
+    "a": 0x61,
+    "b": 0x62,
+    "c":0x63,
+    "d":0x64,
+    "e":0x65,
+    "f":0x66,
+    "g":0x67,
+    "h":0x68,
+    "i":0x69,
+    "j":0x6a,
+    "k":0x6b,
+    "l":0x6c,
+    "m":0x6d,
+    "n":0x6e,
+    "o":0x6f,
+    "p":0x70,
+    "q":0x71,
+    "r":0x72,
+    "s":0x73,
+    "t":0x74,
+    "u":0x75,
+    "v":0x76,
+    "w":0x77,
+    "x":0x78,
+    "y":0x79,
+    "z":0x7a,
+    ",":0x2c,
+    "A":0x41,
+    "B":0x42,
+    "C":0x43,
+    "D":0x44,
+    "E":0x45,
+    "F":0x46,
+    "G":0x47,
+    "H":0x48,
+    "I":0x49,
+    "J":0x4a,
+    "K":0x4b,
+    "L":0x4c,
+    "M":0x4d,
+    "N":0x4e,
+    "O":0x4f,
+    "P":0x50,
+    "Q":0x51,
+    "R":0x52,
+    "S":0x53,
+    "T":0x54,
+    "U":0x55,
+    "V":0x56,
+    "W":0x57,
+    "X":0x58,
+    "Y":0x59,
+    "Z":0x5a,
+    "~":0x7e,
+  };
+
   void writeData(List<BluetoothService> services, String str) async {
     for (BluetoothService service in services) {
       var characteristics = service.characteristics;
@@ -169,73 +236,6 @@ class DeviceScreen extends StatelessWidget {
 
         }
         print(charData);
-
-        var alphaMap = {
-          "0":48,
-          "1":49,
-          "2":50,
-          "3":51,
-          "4":52,
-          "5":53,
-          "6":54,
-          "7":55,
-          "8":56,
-          "9":57,
-          "a": 0x61,
-          "b": 0x62,
-          "c":0x63,
-          "d":0x64,
-          "e":0x65,
-          "f":0x66,
-          "g":0x67,
-          "h":0x68,
-          "i":0x69,
-          "j":0x6a,
-          "k":0x6b,
-          "l":0x6c,
-          "m":0x6d,
-          "n":0x6e,
-          "o":0x6f,
-          "p":0x70,
-          "q":0x71,
-          "r":0x72,
-          "s":0x73,
-          "t":0x74,
-          "u":0x75,
-          "v":0x76,
-          "w":0x77,
-          "x":0x78,
-          "y":0x79,
-          "z":0x7a,
-          ",":0x2c,
-          "A":0x41,
-          "B":0x42,
-          "C":0x43,
-          "D":0x44,
-          "E":0x45,
-          "F":0x46,
-          "G":0x47,
-          "H":0x48,
-          "I":0x49,
-          "J":0x4a,
-          "K":0x4b,
-          "L":0x4c,
-          "M":0x4d,
-          "N":0x4e,
-          "O":0x4f,
-          "P":0x50,
-          "Q":0x51,
-          "R":0x52,
-          "S":0x53,
-          "T":0x54,
-          "U":0x55,
-          "V":0x56,
-          "W":0x57,
-          "X":0x58,
-          "Y":0x59,
-          "Z":0x5a,
-          "~":0x7e,
-        };
 
         var data=List.empty(growable: true);
 
@@ -359,6 +359,54 @@ class DeviceScreen extends StatelessWidget {
                       onPressed: () {
                         device.discoverServices();
                         writeData(snapshot.data!, "dm");
+                      }),
+
+                );
+              },
+            ),
+            StreamBuilder<List<BluetoothService>>(
+              stream: device.services,
+              initialData: [],
+              builder: (c, snapshot) {
+                return ListTile(
+                  title: const Text('Disable Motion Sensor'),
+                  trailing: IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () {
+                        device.discoverServices();
+                        writeData(snapshot.data!, "dm");
+                      }),
+
+                );
+              },
+            ),
+            StreamBuilder<List<BluetoothService>>(
+              stream: device.services,
+              initialData: [],
+              builder: (c, snapshot) {
+                return ListTile(
+                  title: const Text('Disable Motion Sensor'),
+                  trailing: IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () {
+                        device.discoverServices();
+                        writeData(snapshot.data!, "el");
+                      }),
+
+                );
+              },
+            ),
+            StreamBuilder<List<BluetoothService>>(
+              stream: device.services,
+              initialData: [],
+              builder: (c, snapshot) {
+                return ListTile(
+                  title: const Text('Disable Motion Sensor'),
+                  trailing: IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () {
+                        device.discoverServices();
+                        writeData(snapshot.data!, "em");
                       }),
 
                 );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'homepage_view.dart';
+import 'ble/bluetooth_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: HomePage(),
+      home: BluetoothManager(),
     );
   }
 }

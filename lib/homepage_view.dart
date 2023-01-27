@@ -9,9 +9,9 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            'Home Page',
+            'Smart Home Lighting System',
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.red,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,16 +58,19 @@ class HomePage extends StatelessWidget {
             //         );
             //       },
             //     )),
-            // const SizedBox(
-            //   height: 15,
-            // ),
+
+            Image.asset('assets/images/Middlesex.png', fit: BoxFit.scaleDown), //   <-- image
+
+            const SizedBox(
+              height: 450,
+            ),
             Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
-                  child: Text("Bluetooth Manager"),
+                  child: Text("Connect to Devices"),
                   style: ElevatedButton.styleFrom(
                     onPrimary: Colors.white,
-                    primary: Colors.blue,
+                    primary: Colors.red,
                     onSurface: Colors.grey,
                     side: BorderSide(color: Colors.black, width: 1),
                     elevation: 60,

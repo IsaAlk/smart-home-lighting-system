@@ -14,7 +14,7 @@ class BluetoothManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      color: Colors.blue,
+      color: Colors.red,
       home: StreamBuilder<BluetoothState>(
           stream: FlutterBlue.instance.state,
           initialData: BluetoothState.unknown,
@@ -37,7 +37,7 @@ class BluetoothOffScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.red,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -62,6 +62,7 @@ class FindDevicesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Find Devices'),
+        backgroundColor: Colors.red,
       ),
       body: RefreshIndicator(
         onRefresh: () =>
@@ -141,6 +142,7 @@ class FindDevicesScreen extends StatelessWidget {
           } else {
             return FloatingActionButton(
                 child: const Icon(Icons.search),
+                backgroundColor: Colors.red,
                 onPressed: () => FlutterBlue.instance
                     .startScan(timeout: const Duration(seconds: 4)));
           }

@@ -269,6 +269,7 @@ class DeviceScreenState extends State<DeviceScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.device.name),
+        backgroundColor: Colors.red,
         actions: <Widget>[
           StreamBuilder<BluetoothDeviceState>(
             stream: widget.device.state,
@@ -292,12 +293,14 @@ class DeviceScreenState extends State<DeviceScreen> {
               }
               return ElevatedButton(
                   onPressed: onPressed,
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red, // background
+                    onPrimary: Colors.white, // foreground
+                  ),
                   child: Text(
                     text,
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .button
-                        ?.copyWith(color: Colors.white),
+                    style: TextStyle(background: Paint()..color = Colors.red),
+
                   ));
             },
           )

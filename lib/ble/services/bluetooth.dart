@@ -33,6 +33,9 @@ class BluetoothService implements Bluetooth {
   Future<bool> connectTo(String address) async {
     try {
       bluetoothConnection = await BluetoothConnection.toAddress(address);
+      print('bluetoothConnection');
+      print(bluetoothConnection);
+
       return bluetoothConnection.isConnected;
     } catch (e) {
       return false;

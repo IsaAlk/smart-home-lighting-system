@@ -14,9 +14,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _value;
   bool _connected = false;
-  bool _connecting = true;
+  bool _connecting = false;
 
   _autoConnect(BuildContext context) async {
+    print('_autoConnect');
     final SharedPref sharedPref = Provider.of<SharedPrefService>(context,listen: false);
     String address = await sharedPref.getAddress();
     if(address=='nothing'){
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                                 value: e.address,
                               ))
                                   .toList(),
-                              onChanged: _connected?null:(value) {
+                              onChanged: _connected ? null:(value) {
                                 setState(() {
                                   _value = value;
                                   print(_value);
@@ -94,8 +95,8 @@ class _HomePageState extends State<HomePage> {
                             ElevatedButton(
                               child:
                               Text(_connected ? "Disconnect" : "Connect"),
-                              onPressed:_connecting?null:(){
-                                _connected? _disconnect(context):_connect(context);
+                              onPressed: _connecting ? null :(){
+                                _connected ? _disconnect(context): _connect(context);
                               },
                             )
                           ],
@@ -265,6 +266,8 @@ class _HomePageState extends State<HomePage> {
     final SharedPref sharedPref =
     Provider.of<SharedPrefService>(context, listen: false);
     bool status = await bluetooth.connectTo(_value);
+    print('status:');
+    print(status);
     await sharedPref.setAddress(_value);
     if (status) {
       sharedPref.getStatus('light').then((value) {

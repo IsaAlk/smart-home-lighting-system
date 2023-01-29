@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {});
         },
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               color: Colors.white),
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                                 });
                               },
                               value: _value,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
                               disabledHint: Text("Disconnect to change device"),
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     }
-                    return Padding(
+                    return const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Text("Turn on bluetooth"),
                     );
@@ -111,92 +111,58 @@ class _HomePageState extends State<HomePage> {
                   return CircularProgressIndicator();
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  leading: Icon(Icons.lightbulb_outline),
-                  title: FutureBuilder<bool>(
-                    future: sharedPref.getStatus('light'),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          return snapshot.data
-                              ? Text('Status : On ')
-                              : Text('Status : Off ');
-                        }
-                        return Text('Off ');
-                      }
-                      return Text('unknown');
-                    },
-                  ),
-                  subtitle: FutureBuilder<String>(
-                    future: sharedPref.getTurnOnLight(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          return Text("Last turned on: ${snapshot.data}");
-                        }
-                        return Text('unknown');
-                      }
-                      return Text('unknown');
-                    },
-                  ),
-                  trailing: FutureBuilder<String>(
-                    future: sharedPref.getTurnOffLight(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          return Text("Last turned off: ${snapshot.data}");
-                        }
-                        return Text('unknown');
-                      }
-                      return Text('unknown');
-                    },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  leading: Icon(Icons.ac_unit),
-                  title: FutureBuilder<bool>(
-                    future: sharedPref.getStatus('fan'),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          return snapshot.data
-                              ? Text('Status : On ')
-                              : Text('Status : Off ');
-                        }
-                        return Text('Off ');
-                      }
-                      return Text('unknown ');
-                    },
-                  ),
-                  subtitle: FutureBuilder<String>(
-                    future: sharedPref.getTurnOnFan(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          return Text("Last turned on: ${snapshot.data}");
+              Material(
+                elevation: 0,
+                child: ButtonBar(
+                  alignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text("Motion Sensor"),
+                    FutureBuilder<bool>(
+                      future: sharedPref.getStatus('motion'),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.hasData) {
+                            return snapshot.data
+                                ? ElevatedButton(
+                              child: Row(
+                                children: const <Widget>[
+                                  Icon(Icons.flash_off),
+                                  Text("OFF"),
+                                ],
+                              ),
+                              onPressed: !_connected
+                                  ? null
+                                  : () {
+                                bluetooth.write("em");
+                                sharedPref.setStatus(
+                                    'motion', false);
+                                sharedPref.setTurnOffLight();
+                                setState(() {});
+                              },
+                            )
+                                : ElevatedButton(
+                              child: Row(
+                                children: const <Widget>[
+                                  Icon(Icons.flash_on),
+                                  Text("On"),
+                                ],
+                              ),
+                              onPressed: !_connected
+                                  ? null
+                                  : () {
+                                bluetooth.write("dm");
+                                sharedPref.setStatus('motion', true);
+                                sharedPref.setTurnOnLight();
+                                setState(() {});
+                              },
+                            );
+                          }
+                          return Text('Off ');
                         }
                         return Text('unknown');
-                      }
-                      return Text('unknown');
-                    },
-                  ),
-                  trailing: FutureBuilder<String>(
-                    future: sharedPref.getTurnOffFan(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          return Text("Last turned off: ${snapshot.data}");
-                        }
-                        return Text('unknown');
-                      }
-                      return Text('unknown');
-                    },
-                  ),
+                      },
+                    ),
+                  ],
                 ),
               ),
               Material(
@@ -204,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                 child: ButtonBar(
                   alignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Text("Enable Motion Sensor"),
+                    Text("Light Sensor"),
                     FutureBuilder<bool>(
                       future: sharedPref.getStatus('light'),
                       builder: (context, snapshot) {
@@ -221,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: !_connected
                                   ? null
                                   : () {
-                                bluetooth.write("em");
+                                bluetooth.write("el");
                                 sharedPref.setStatus(
                                     'light', false);
                                 sharedPref.setTurnOffLight();
@@ -238,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: !_connected
                                   ? null
                                   : () {
-                                bluetooth.write("dm");
+                                bluetooth.write("dl");
                                 sharedPref.setStatus('light', true);
                                 sharedPref.setTurnOnLight();
                                 setState(() {});
@@ -269,14 +235,14 @@ class _HomePageState extends State<HomePage> {
     print('status:');
     print(status);
     await sharedPref.setAddress(_value);
-    if (status) {
-      sharedPref.getStatus('light').then((value) {
-        value ? bluetooth.write('L') : bluetooth.write('7');
-      });
-      sharedPref.getStatus('fan').then((value) {
-        value ? bluetooth.write('F') : bluetooth.write('3');
-      });
-    }
+    // if (status) {
+    //   sharedPref.getStatus('light').then((value) {
+    //     value ? bluetooth.write('L') : bluetooth.write('7');
+    //   });
+    //   sharedPref.getStatus('fan').then((value) {
+    //     value ? bluetooth.write('F') : bluetooth.write('3');
+    //   });
+    // }
     setState(() {
       _connected = status;
       _connecting = false;
